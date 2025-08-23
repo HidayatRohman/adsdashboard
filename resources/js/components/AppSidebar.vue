@@ -25,6 +25,11 @@ const mainNavItems: NavItem[] = [
         icon: BookOpen,
     },
     {
+        title: 'Brands',
+        href: '/brands',
+        icon: BookOpen,
+    },
+    {
         title: 'Spent',
     href: '/spents',
         icon: BookOpen,

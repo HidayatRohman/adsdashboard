@@ -11,9 +11,32 @@
         <form @submit.prevent="handleSubmit" class="grid gap-3" enctype="multipart/form-data">
           <div>
             <label class="block text-sm mb-1">Logo</label>
-            <input type="file" @change="onFileChange" accept="image/*" />
-            <div v-if="preview" class="mt-2">
-              <img :src="preview" class="h-20 object-contain" />
+
+            <div
+              :class="['rounded-lg p-6 cursor-pointer border-2 border-dashed transition', dragActive ? 'ring-2 ring-blue-300 bg-blue-50 border-blue-300' : 'bg-white border-gray-200']"
+              @dragover.prevent
+              @dragenter.prevent="dragActive = true"
+              @dragleave.prevent="dragActive = false"
+              @drop.prevent="handleDrop"
+            >
+              <input ref="fileInput" type="file" class="hidden" @change="onFileChange" accept="image/*" />
+
+              <div v-if="!preview" class="text-center">
+                <div class="mb-3">
+                  <!-- simple placeholder icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="40" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"></rect><path d="M8 21v-4a2 2 0 0 1 2-2h4"></path><path d="M21 15l-5-5-4 4-3-3-5 5"></path></svg>
+                </div>
+                <div class="text-sm">Drop your image here, or <button class="text-blue-600 underline" @click.prevent="openFileDialog">browse</button></div>
+                <div class="text-xs text-muted mt-2">Supports: JPG, JPEG2000, PNG</div>
+              </div>
+
+              <div v-else class="text-center">
+                <img :src="preview" class="mx-auto h-28 object-contain" />
+                <div class="mt-3 flex items-center justify-center gap-2">
+                  <button type="button" class="btn" @click.prevent="removeFile">Remove</button>
+                  <button type="button" class="btn" @click.prevent="openFileDialog">Change</button>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -103,12 +126,35 @@ const editId = ref<number | null>(null);
 const form = reactive({ name: '', logo: null as File | null });
 const preview = ref<string | null>(null);
 const filters = reactive({ search: '' });
+const fileInput = ref<HTMLInputElement | null>(null);
+const dragActive = ref(false);
 
 function onFileChange(e: Event) {
   const input = e.target as HTMLInputElement;
   if (!input.files || !input.files[0]) return;
   form.logo = input.files[0];
   preview.value = URL.createObjectURL(form.logo);
+}
+
+function handleDrop(e: DragEvent) {
+  dragActive.value = false;
+  const dt = e.dataTransfer;
+  if (!dt || !dt.files || !dt.files.length) return;
+  const f = dt.files[0];
+  form.logo = f as File;
+  preview.value = URL.createObjectURL(form.logo);
+}
+
+function openFileDialog() {
+  if (fileInput.value) fileInput.value.click();
+}
+
+function removeFile() {
+  form.logo = null;
+  if (preview.value) {
+    URL.revokeObjectURL(preview.value);
+  }
+  preview.value = null;
 }
 
 function formatNumber(n: number) {
