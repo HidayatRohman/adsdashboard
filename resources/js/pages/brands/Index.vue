@@ -13,7 +13,7 @@
             <label class="block text-sm mb-1">Logo</label>
 
             <div
-              :class="['rounded-lg p-6 cursor-pointer border-2 border-dashed transition', dragActive ? 'ring-2 ring-blue-300 bg-blue-50 border-blue-300' : 'bg-white border-gray-200']"
+              :class="['rounded-lg p-6 cursor-pointer border-2 border-dashed transition flex flex-col items-center justify-center min-h-[140px]', dragActive ? 'ring-2 ring-blue-300 bg-blue-50 border-blue-300' : 'bg-white border-gray-200']"
               @dragover.prevent
               @dragenter.prevent="dragActive = true"
               @dragleave.prevent="dragActive = false"
@@ -21,10 +21,10 @@
             >
               <input ref="fileInput" type="file" class="hidden" @change="onFileChange" accept="image/*" />
 
-              <div v-if="!preview" class="text-center">
-                <div class="mb-3">
+              <div v-if="!preview" class="flex flex-col items-center justify-center w-full">
+                <div class="mb-3 flex items-center justify-center w-full">
                   <!-- simple placeholder icon -->
-                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="40" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"></rect><path d="M8 21v-4a2 2 0 0 1 2-2h4"></path><path d="M21 15l-5-5-4 4-3-3-5 5"></path></svg>
+                  <svg class="mx-auto" xmlns="http://www.w3.org/2000/svg" width="48" height="40" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"></rect><path d="M8 21v-4a2 2 0 0 1 2-2h4"></path><path d="M21 15l-5-5-4 4-3-3-5 5"></path></svg>
                 </div>
                 <div class="text-sm">Drop your image here, or <button class="text-blue-600 underline" @click.prevent="openFileDialog">browse</button></div>
                 <div class="text-xs text-muted mt-2">Supports: JPG, JPEG2000, PNG</div>
