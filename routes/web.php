@@ -24,6 +24,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('sales', [\App\Http\Controllers\SaleController::class, 'store'])->name('sales.store');
     Route::patch('sales/{sale}', [\App\Http\Controllers\SaleController::class, 'update'])->name('sales.update');
     Route::delete('sales/{sale}', [\App\Http\Controllers\SaleController::class, 'destroy'])->name('sales.destroy');
+    
+    // Product CRUD
+    Route::get('products', [\App\Http\Controllers\ProductController::class, 'index'])->name('products.index');
+    Route::post('products', [\App\Http\Controllers\ProductController::class, 'store'])->name('products.store');
+    Route::patch('products/{product}', [\App\Http\Controllers\ProductController::class, 'update'])->name('products.update');
+    Route::delete('products/{product}', [\App\Http\Controllers\ProductController::class, 'destroy'])->name('products.destroy');
+    
+    // Brand CRUD
+    Route::get('brands', [\App\Http\Controllers\BrandController::class, 'index'])->name('brands.index');
+    Route::post('brands', [\App\Http\Controllers\BrandController::class, 'store'])->name('brands.store');
+    Route::patch('brands/{brand}', [\App\Http\Controllers\BrandController::class, 'update'])->name('brands.update');
+    Route::delete('brands/{brand}', [\App\Http\Controllers\BrandController::class, 'destroy'])->name('brands.destroy');
 });
 
 require __DIR__.'/settings.php';
