@@ -5,47 +5,21 @@
     <Dialog v-model:open="editDialogOpen">
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Transaksi</DialogTitle>
+          <DialogTitle>{{ editing ? 'Edit Transaksi' : 'Tambah Transaksi' }}</DialogTitle>
         </DialogHeader>
 
-        <div class="grid gap-3">
-          <div>
-            <label class="block text-sm mb-1">Tanggal Lead Masuk</label>
-            <input type="date" v-model="form.tanggal_lead_masuk" class="w-full border p-2 rounded" required />
-          </div>
-
-          <div>
-            <label class="block text-sm mb-1">Nominal Masuk</label>
-            <input type="number" v-model.number="form.nominal_masuk" class="w-full border p-2 rounded" required min="0" />
-          </div>
-        </div>
-
-        <DialogFooter class="mt-4 flex gap-2">
-          <DialogClose as-child>
-            <button class="btn">Batal</button>
-          </DialogClose>
-          <button class="btn btn-primary" @click.prevent="handleSubmit">Update</button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-
-    <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
-      <div class="grid auto-rows-min gap-4 md:grid-cols-1">
-        <div class="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border p-4">
-          <h2 class="text-lg font-semibold mb-3">Input Transaksi</h2>
-
-          <form @submit.prevent="handleSubmit" class="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:items-end">
-            <div class="sm:col-span-1">
+        <!-- Full form now lives inside the dialog for both create and edit -->
+        <form @submit.prevent="handleSubmit" class="grid gap-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
               <label class="block text-sm mb-1">Tanggal Transfer</label>
               <input type="date" v-model="form.tanggal_transfer" class="w-full border p-2 rounded" />
             </div>
-
-            <div class="sm:col-span-1">
+            <div>
               <label class="block text-sm mb-1">Tanggal Lead Masuk</label>
               <input type="date" v-model="form.tanggal_lead_masuk" class="w-full border p-2 rounded" />
             </div>
-
-            <div class="sm:col-span-1">
+            <div>
               <label class="block text-sm mb-1">Periode Lead (bulan)</label>
               <select v-model.number="form.periode_lead_bulan" class="w-full border p-2 rounded">
                 <option value="">--Pilih Bulan--</option>
@@ -53,22 +27,22 @@
               </select>
             </div>
 
-            <div class="sm:col-span-1">
+            <div>
               <label class="block text-sm mb-1">Nama Lengkap Mitra</label>
               <input v-model="form.nama_lengkap_mitra" class="w-full border p-2 rounded" />
             </div>
 
-            <div class="sm:col-span-1">
+            <div>
               <label class="block text-sm mb-1">No WA</label>
               <input v-model="form.no_wa" class="w-full border p-2 rounded" />
             </div>
 
-            <div class="sm:col-span-1">
+            <div>
               <label class="block text-sm mb-1">Umur</label>
               <input type="number" v-model.number="form.umur" class="w-full border p-2 rounded" />
             </div>
 
-            <div class="sm:col-span-1">
+            <div>
               <label class="block text-sm mb-1">Pekerjaan</label>
               <select v-model="form.pekerjaan" class="w-full border p-2 rounded">
                 <option value="">--Pilih--</option>
@@ -82,7 +56,7 @@
               </select>
             </div>
 
-            <div class="sm:col-span-1">
+            <div>
               <label class="block text-sm mb-1">Nama Paket (produk)</label>
               <select v-model="form.product_id" class="w-full border p-2 rounded">
                 <option value="">--Pilih Paket--</option>
@@ -90,7 +64,7 @@
               </select>
             </div>
 
-            <div class="sm:col-span-1">
+            <div>
               <label class="block text-sm mb-1">Lead Awal</label>
               <select v-model="form.lead_awal" class="w-full border p-2 rounded">
                 <option value="">--Pilih--</option>
@@ -103,7 +77,7 @@
               </select>
             </div>
 
-            <div class="sm:col-span-1">
+            <div>
               <label class="block text-sm mb-1">Sumber</label>
               <select v-model="form.sumber" class="w-full border p-2 rounded">
                 <option value="">--Pilih--</option>
@@ -116,7 +90,7 @@
               </select>
             </div>
 
-            <div class="sm:col-span-1">
+            <div>
               <label class="block text-sm mb-1">Provinsi</label>
               <select v-model="form.provinsi" class="w-full border p-2 rounded">
                 <option value="">--Pilih Provinsi--</option>
@@ -124,7 +98,7 @@
               </select>
             </div>
 
-            <div class="sm:col-span-1">
+            <div>
               <label class="block text-sm mb-1">Kabupaten</label>
               <select v-model="form.kabupaten" class="w-full border p-2 rounded">
                 <option value="">--Pilih Kabupaten--</option>
@@ -132,7 +106,7 @@
               </select>
             </div>
 
-            <div class="sm:col-span-1">
+            <div>
               <label class="block text-sm mb-1">Status</label>
               <select v-model="form.status" class="w-full border p-2 rounded">
                 <option value="">--Pilih--</option>
@@ -143,20 +117,34 @@
               </select>
             </div>
 
-            <div class="sm:col-span-1">
+            <div>
               <label class="block text-sm mb-1">Nominal Masuk (Rp)</label>
               <input type="number" v-model.number="form.nominal_masuk" class="w-full border p-2 rounded" />
             </div>
 
-            <div class="sm:col-span-1">
+            <div>
               <label class="block text-sm mb-1">Harga Paket (Rp)</label>
               <input type="number" v-model.number="form.harga_paket" class="w-full border p-2 rounded" />
             </div>
+          </div>
 
-            <div class="sm:col-span-3">
-              <button type="submit" class="btn btn-primary w-full">{{ editing ? 'Update' : 'Simpan' }}</button>
-            </div>
-          </form>
+          <DialogFooter class="mt-4 flex gap-2">
+            <DialogClose as-child>
+              <button type="button" class="btn" @click.prevent="clearForm">Batal</button>
+            </DialogClose>
+            <button type="submit" class="btn btn-primary">{{ editing ? 'Update' : 'Simpan' }}</button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+
+    <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
+      <div class="grid auto-rows-min gap-4 md:grid-cols-1">
+        <div class="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border p-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-semibold mb-3">Input Transaksi</h2>
+            <button class="btn btn-primary" @click.prevent="openCreate">Tambah Transaksi</button>
+          </div>
         </div>
 
         <div class="relative min-h-[40vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border p-4">
@@ -301,6 +289,12 @@ function handleSubmit() {
   } else {
     router.post(route('sales.store'), payload, { onSuccess: finish });
   }
+}
+
+function openCreate() {
+  clearForm();
+  editing.value = false;
+  editDialogOpen.value = true;
 }
 
 function edit(s: any) {
