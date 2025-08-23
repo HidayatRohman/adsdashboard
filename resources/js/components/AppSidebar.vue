@@ -15,6 +15,16 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
+        title: 'Transaksi',
+        href: '/sales',
+        icon: Folder,
+    },
+    {
+        title: 'Products',
+        href: '/products',
+        icon: BookOpen,
+    },
+    {
         title: 'Spent',
     href: '/spents',
         icon: BookOpen,

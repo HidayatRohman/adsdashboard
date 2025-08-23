@@ -18,6 +18,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('spents', [\App\Http\Controllers\SpentController::class, 'store'])->name('spents.store');
     Route::patch('spents/{spent}', [\App\Http\Controllers\SpentController::class, 'update'])->name('spents.update');
     Route::delete('spents/{spent}', [\App\Http\Controllers\SpentController::class, 'destroy'])->name('spents.destroy');
+    
+    // Sales CRUD
+    Route::get('sales', [\App\Http\Controllers\SaleController::class, 'index'])->name('sales.index');
+    Route::post('sales', [\App\Http\Controllers\SaleController::class, 'store'])->name('sales.store');
+    Route::patch('sales/{sale}', [\App\Http\Controllers\SaleController::class, 'update'])->name('sales.update');
+    Route::delete('sales/{sale}', [\App\Http\Controllers\SaleController::class, 'destroy'])->name('sales.destroy');
 });
 
 require __DIR__.'/settings.php';
