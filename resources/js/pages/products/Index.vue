@@ -32,11 +32,11 @@
             <label class="block text-sm mb-1">Variasi Harga</label>
             <div class="space-y-2">
               <div v-for="(v, idx) in form.variations" :key="idx" class="flex gap-2 items-center">
-                <input v-model="v.name" placeholder="Nama variasi" class="flex-1 border p-2 rounded" />
-                <input type="number" v-model.number="v.price" placeholder="Harga" class="w-36 border p-2 rounded" />
-                <button type="button" class="pill-btn small" @click.prevent="form.variations.splice(idx,1)">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H3a1 1 0 000 2h14a1 1 0 100-2h-2V3a1 1 0 00-1-1H6zm2 6a1 1 0 10-2 0v6a1 1 0 102 0V8zm6 0a1 1 0 10-2 0v6a1 1 0 102 0V8z" clip-rule="evenodd"/></svg>
-                </button>
+                    <input v-model="v.name" placeholder="Nama variasi" class="flex-1 border p-2 rounded" />
+                    <input type="number" v-model.number="v.price" placeholder="Harga" class="w-36 border p-2 rounded" />
+                    <button type="button" class="pill-btn small" @click.prevent="form.variations.splice(idx,1)">
+                      <Trash2 class="h-4 w-4" />
+                    </button>
               </div>
               <button type="button" class="pill-btn" @click.prevent="form.variations.push({ name: '', price: null })">Tambah Variasi</button>
             </div>
@@ -115,6 +115,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, usePage, router } from '@inertiajs/vue3';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from '@/components/ui/dialog';
+import { Trash2 } from 'lucide-vue-next';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Produk', href: '/products' }];
 

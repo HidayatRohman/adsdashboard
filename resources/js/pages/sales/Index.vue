@@ -179,11 +179,11 @@
                 <td class="p-2 text-center">
                   <div class="flex items-center justify-center gap-2">
                     <button @click="edit(s)" class="pill-btn small" title="Edit">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5h6M3 21v-4a4 4 0 014-4h6"/></svg>
+                      <Edit2 class="h-4 w-4 text-white" />
                     </button>
 
                     <button @click="destroy(s.id)" class="pill-btn small pill-danger" title="Hapus">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H3a1 1 0 000 2h14a1 1 0 100-2h-2V3a1 1 0 00-1-1H6zm2 6a1 1 0 10-2 0v6a1 1 0 102 0V8zm6 0a1 1 0 10-2 0v6a1 1 0 102 0V8z" clip-rule="evenodd"/></svg>
+                      <Trash2 class="h-4 w-4 text-white" />
                     </button>
                   </div>
                 </td>
@@ -215,6 +215,7 @@ import {
   DialogFooter,
   DialogClose,
 } from '@/components/ui/dialog';
+import { Edit2, Trash2 } from 'lucide-vue-next';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Transaksi', href: '/sales' }];
 

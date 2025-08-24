@@ -24,7 +24,7 @@
               <div v-if="!preview" class="flex flex-col items-center justify-center w-full">
                 <div class="mb-3 flex items-center justify-center w-full">
                   <!-- simple placeholder icon -->
-                  <svg class="mx-auto" xmlns="http://www.w3.org/2000/svg" width="48" height="40" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"></rect><path d="M8 21v-4a2 2 0 0 1 2-2h4"></path><path d="M21 15l-5-5-4 4-3-3-5 5"></path></svg>
+                  <Image class="mx-auto h-12 w-12 text-blue-600" />
                 </div>
                 <div class="text-sm">Drop your image here, or <button class="text-blue-600 underline" @click.prevent="openFileDialog">browse</button></div>
                 <div class="text-xs text-muted mt-2">Supports: JPG, JPEG2000, PNG</div>
@@ -90,11 +90,11 @@
                 <td class="p-2 text-center">
                   <div class="flex items-center justify-center gap-2">
                     <button @click="edit(b)" class="pill-btn small" title="Edit">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5h6M3 21v-4a4 4 0 014-4h6"/></svg>
+                        <Edit2 class="h-4 w-4 text-white" />
                     </button>
 
                     <button @click="destroy(b.id)" class="pill-btn small pill-danger" title="Hapus">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H3a1 1 0 000 2h14a1 1 0 100-2h-2V3a1 1 0 00-1-1H6zm2 6a1 1 0 10-2 0v6a1 1 0 102 0V8zm6 0a1 1 0 10-2 0v6a1 1 0 102 0V8z" clip-rule="evenodd"/></svg>
+                      <Trash2 class="h-4 w-4 text-white" />
                     </button>
                   </div>
                 </td>
@@ -118,6 +118,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, usePage, router } from '@inertiajs/vue3';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from '@/components/ui/dialog';
+import { Image, Edit2, Trash2 } from 'lucide-vue-next';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Brand', href: '/brands' }];
 

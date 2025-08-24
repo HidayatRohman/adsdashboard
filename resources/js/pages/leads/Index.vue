@@ -92,13 +92,13 @@
                 <td class="p-2">{{ l.last_response }}</td>
                 <td class="p-2 text-center">
                   <div class="flex items-center justify-center gap-2">
-                    <button @click="edit(l)" class="pill-btn small" title="Edit">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5h6M3 21v-4a4 4 0 014-4h6"/></svg>
-                    </button>
+                        <button @click="edit(l)" class="pill-btn small" title="Edit">
+                          <Edit2 class="h-4 w-4 text-white" />
+                        </button>
 
-                    <button @click="destroy(l.id)" class="pill-btn small pill-danger" title="Hapus">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H3a1 1 0 000 2h14a1 1 0 100-2h-2V3a1 1 0 00-1-1H6zm2 6a1 1 0 10-2 0v6a1 1 0 102 0V8zm6 0a1 1 0 10-2 0v6a1 1 0 102 0V8z" clip-rule="evenodd"/></svg>
-                    </button>
+                        <button @click="destroy(l.id)" class="pill-btn small pill-danger" title="Hapus">
+                          <Trash2 class="h-4 w-4 text-white" />
+                        </button>
                   </div>
                 </td>
               </tr>
@@ -120,13 +120,15 @@ import { reactive, ref, computed } from 'vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, usePage, router } from '@inertiajs/vue3';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from '@/components/ui/dialog';
+import { Edit2, Trash2 } from 'lucide-vue-next';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Leads', href: '/leads' }];
+
 const page = usePage();
-
 const propsAny: any = (page.props as any);
-const products = computed(() => (propsAny.products ?? []) as Array<{ id: number; name: string }> );
 
+const products = computed(() => (propsAny.products ?? []) as Array<{ id: number; name: string }> );
 // Marketing name from logged in user
 const marketingName = computed(() => (propsAny.auth?.user?.name) ?? 'Marketing');
 
@@ -134,26 +136,8 @@ const responses = [
   'Greeting','Sistem','Fasilitas Paket','Proposal','Harga Paket','Minat FU','Alamat Kantor','Ongkir','Pertimbangkan','Modal','Kredit','COD','Info Rekening','Cari Lokasi','Cari Karyawan','Info Outlet','Training','Repeat Order','HPP & BEP','Harga Jual','Refund','MOU','Kesesuaian Promo','Bahan Baku Saja','Testimoni','Tidak Jelas','Closing'
 ];
 
-const form = reactive({ product_id: null as number | null, customer_name: '', customer_phone: '', address: '', last_response: '' });
-
-function handleSubmit() {
-  const payload = { ...form };
-  router.post(route('leads.store'), payload, { onSuccess: () => { clearForm(); router.get(route('leads.index')); } });
-}
-
-function clearForm() {
-  form.product_id = null;
-  form.customer_name = '';
-  form.customer_phone = '';
-  form.address = '';
-  form.last_response = '';
-}
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from '@/components/ui/dialog';
-
-const page = usePage();
 type LeadItem = any;
 type PaginatedLeads = { data: LeadItem[]; current_page: number; next_page_url: string | null; prev_page_url: string | null };
-const propsAny: any = (page.props as any);
 const leads = computed<PaginatedLeads>(() => (propsAny.leads as PaginatedLeads) ?? { data: [], current_page: 1, next_page_url: null, prev_page_url: null });
 const leadsAny: any = leads;
 
@@ -161,10 +145,7 @@ const dialogOpen = ref(false);
 const editing = ref(false);
 const editId = ref<number | null>(null);
 
-const formState = reactive({ product_id: null as number | null, customer_name: '', customer_phone: '', address: '', last_response: '' });
-
-// reuse earlier names for template binding
-const form: any = formState;
+const form = reactive({ product_id: null as number | null, customer_name: '', customer_phone: '', address: '', last_response: '' });
 
 function goto(pageNum: number) {
   router.get(route('leads.index', { page: pageNum }));
