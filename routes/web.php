@@ -36,6 +36,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('brands', [\App\Http\Controllers\BrandController::class, 'store'])->name('brands.store');
     Route::patch('brands/{brand}', [\App\Http\Controllers\BrandController::class, 'update'])->name('brands.update');
     Route::delete('brands/{brand}', [\App\Http\Controllers\BrandController::class, 'destroy'])->name('brands.destroy');
+
+    // Leads CRUD
+    Route::get('leads', [\App\Http\Controllers\LeadController::class, 'index'])->name('leads.index');
+    Route::post('leads', [\App\Http\Controllers\LeadController::class, 'store'])->name('leads.store');
+    Route::patch('leads/{lead}', [\App\Http\Controllers\LeadController::class, 'update'])->name('leads.update');
+    Route::delete('leads/{lead}', [\App\Http\Controllers\LeadController::class, 'destroy'])->name('leads.destroy');
 });
 
 require __DIR__.'/settings.php';
