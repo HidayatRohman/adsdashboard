@@ -68,16 +68,25 @@
                 <td class="p-2">{{ formatDate(s.tanggal) }}</td>
                 <td class="p-2 text-right">Rp{{ formatNumber(s.nominal) }}</td>
                 <td class="p-2 text-center">
-                  <button @click="edit(s)" class="mr-2 text-blue-600">Edit</button>
-                  <button @click="destroy(s.id)" class="text-red-600">Hapus</button>
+                  <div class="flex items-center justify-center gap-2">
+                    <button @click="edit(s)" class="pill-btn">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5h6M3 21v-4a4 4 0 014-4h6"/></svg>
+                      <span class="hidden sm:inline ml-2 text-sm text-white">Edit</span>
+                    </button>
+
+                    <button @click="destroy(s.id)" class="pill-btn pill-danger">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H3a1 1 0 000 2h14a1 1 0 100-2h-2V3a1 1 0 00-1-1H6zm2 6a1 1 0 10-2 0v6a1 1 0 102 0V8zm6 0a1 1 0 10-2 0v6a1 1 0 102 0V8z" clip-rule="evenodd"/></svg>
+                      <span class="hidden sm:inline ml-2 text-sm text-white">Hapus</span>
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="mt-3 flex items-center gap-2">
-            <button v-if="spents.prev_page_url" @click="goto(spents.current_page - 1)" class="btn">Previous</button>
-            <button v-if="spents.next_page_url" @click="goto(spents.current_page + 1)" class="btn">Next</button>
+            <button v-if="spentsAny.prev_page_url" @click="goto(spentsAny.current_page - 1)" class="pill-btn small">Previous</button>
+            <button v-if="spentsAny.next_page_url" @click="goto(spentsAny.current_page + 1)" class="pill-btn small">Next</button>
           </div>
         </div>
       </div>
@@ -103,6 +112,8 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Spent', href: '/spent' }];
 
 const page = usePage();
 const spents = computed(() => (page.props.spents ?? { data: [], current_page: 1, next_page_url: null, prev_page_url: null }));
+// Template-friendly alias to avoid TS template checking issues
+const spentsAny: any = spents;
 
 const editing = ref(false);
 const editId = ref<number | null>(null);
@@ -170,4 +181,8 @@ function formatDate(d: string) {
 <style scoped>
 .btn { padding: 8px 12px; border-radius: 6px; border: 1px solid #ddd; background: #fff; cursor: pointer }
 .btn-primary { background: #2563eb; color: #fff; border-color: transparent }
+  .pill-btn { display: inline-flex; align-items: center; gap: .5rem; padding: .5rem .9rem; border-radius: 9999px; border: none; background: #6b21a8; color: #fff; cursor: pointer; box-shadow: 0 6px 20px rgba(107,33,168,0.18); transition: transform .08s ease, box-shadow .12s ease }
+  .pill-btn.small { padding: .35rem .7rem; font-size: .85rem }
+  .pill-btn:hover { transform: translateY(-2px) }
+  .pill-btn.pill-danger { background: #dc2626 }
 </style>

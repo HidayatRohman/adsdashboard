@@ -88,8 +88,15 @@
                 </td>
                 <td class="p-2">{{ b.name }}</td>
                 <td class="p-2 text-center">
-                  <button @click="edit(b)" class="mr-2 text-blue-600">Edit</button>
-                  <button @click="destroy(b.id)" class="text-red-600">Hapus</button>
+                  <div class="flex items-center justify-center gap-2">
+                    <button @click="edit(b)" class="pill-btn small" title="Edit">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5h6M3 21v-4a4 4 0 014-4h6"/></svg>
+                    </button>
+
+                    <button @click="destroy(b.id)" class="pill-btn small pill-danger" title="Hapus">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H3a1 1 0 000 2h14a1 1 0 100-2h-2V3a1 1 0 00-1-1H6zm2 6a1 1 0 10-2 0v6a1 1 0 102 0V8zm6 0a1 1 0 10-2 0v6a1 1 0 102 0V8z" clip-rule="evenodd"/></svg>
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -218,4 +225,8 @@ function clearForm() {
 <style scoped>
 .btn { padding: 8px 12px; border-radius: 6px; border: 1px solid #ddd; background: #fff; cursor: pointer }
 .btn-primary { background: #2563eb; color: #fff; border-color: transparent }
+  .pill-btn { display: inline-flex; align-items: center; gap: .5rem; padding: .5rem .9rem; border-radius: 9999px; border: none; background: #4f46e5; color: #fff; cursor: pointer; box-shadow: 0 6px 20px rgba(79,70,229,0.18); transition: transform .08s ease, box-shadow .12s ease }
+  .pill-btn.small { padding: .35rem .6rem; font-size: .85rem }
+  .pill-btn:hover { transform: translateY(-2px) }
+  .pill-btn.pill-danger { background: #dc2626 }
 </style>

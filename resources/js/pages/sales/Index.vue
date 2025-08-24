@@ -9,42 +9,48 @@
         </DialogHeader>
 
         <!-- Full form now lives inside the dialog for both create and edit -->
-        <form @submit.prevent="handleSubmit" class="grid gap-3">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <form @submit.prevent="handleSubmit" class="grid gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
-              <label class="block text-sm mb-1">Tanggal Transfer</label>
-              <input type="date" v-model="form.tanggal_transfer" class="w-full border p-2 rounded" />
+              <label class="form-label">Tanggal Transfer</label>
+              <input type="date" v-model="form.tanggal_transfer" class="form-input" />
+              <div class="helper-text">Tanggal transfer jika sudah dilakukan</div>
             </div>
+
             <div>
-              <label class="block text-sm mb-1">Tanggal Lead Masuk</label>
-              <input type="date" v-model="form.tanggal_lead_masuk" class="w-full border p-2 rounded" />
+              <label class="form-label">Tanggal Lead Masuk</label>
+              <input type="date" v-model="form.tanggal_lead_masuk" class="form-input" />
+              <div class="helper-text">Tanggal lead pertama kali masuk</div>
             </div>
+
             <div>
-              <label class="block text-sm mb-1">Periode Lead (bulan)</label>
-              <select v-model.number="form.periode_lead_bulan" class="w-full border p-2 rounded">
+              <label class="form-label">Periode Lead (bulan)</label>
+              <select v-model.number="form.periode_lead_bulan" class="form-input">
                 <option value="">--Pilih Bulan--</option>
                 <option v-for="(m, idx) in months" :key="idx" :value="idx+1">{{ m }}</option>
               </select>
             </div>
 
             <div>
-              <label class="block text-sm mb-1">Nama Lengkap Mitra</label>
-              <input v-model="form.nama_lengkap_mitra" class="w-full border p-2 rounded" />
+              <label class="form-label">Nama Lengkap Mitra</label>
+              <input v-model="form.nama_lengkap_mitra" class="form-input" placeholder="Nama lengkap sesuai KTP" />
+              <div class="helper-text">Contoh: Budi Santoso</div>
             </div>
 
             <div>
-              <label class="block text-sm mb-1">No WA</label>
-              <input v-model="form.no_wa" class="w-full border p-2 rounded" />
+              <label class="form-label">No WA</label>
+              <input v-model="form.no_wa" class="form-input" placeholder="0812xxxx" />
+              <div class="helper-text">Gunakan nomor aktif untuk follow up</div>
             </div>
 
             <div>
-              <label class="block text-sm mb-1">Umur</label>
-              <input type="number" v-model.number="form.umur" class="w-full border p-2 rounded" />
+              <label class="form-label">Umur</label>
+              <input type="number" v-model.number="form.umur" class="form-input" placeholder="Umur" />
             </div>
 
             <div>
-              <label class="block text-sm mb-1">Pekerjaan</label>
-              <select v-model="form.pekerjaan" class="w-full border p-2 rounded">
+              <label class="form-label">Pekerjaan</label>
+              <select v-model="form.pekerjaan" class="form-input">
                 <option value="">--Pilih--</option>
                 <option>Pelajar</option>
                 <option>Mahasiswa</option>
@@ -57,16 +63,16 @@
             </div>
 
             <div>
-              <label class="block text-sm mb-1">Nama Paket (produk)</label>
-              <select v-model="form.product_id" class="w-full border p-2 rounded">
+              <label class="form-label">Nama Paket (produk)</label>
+              <select v-model="form.product_id" class="form-input">
                 <option value="">--Pilih Paket--</option>
                 <option v-for="p in products" :key="p.id" :value="p.id">{{ p.name }} - Rp {{ formatNumber(p.price) }}</option>
               </select>
             </div>
 
             <div>
-              <label class="block text-sm mb-1">Lead Awal</label>
-              <select v-model="form.lead_awal" class="w-full border p-2 rounded">
+              <label class="form-label">Lead Awal</label>
+              <select v-model="form.lead_awal" class="form-input">
                 <option value="">--Pilih--</option>
                 <option>IG</option>
                 <option>FB</option>
@@ -78,8 +84,8 @@
             </div>
 
             <div>
-              <label class="block text-sm mb-1">Sumber</label>
-              <select v-model="form.sumber" class="w-full border p-2 rounded">
+              <label class="form-label">Sumber</label>
+              <select v-model="form.sumber" class="form-input">
                 <option value="">--Pilih--</option>
                 <option>IG</option>
                 <option>FB</option>
@@ -91,24 +97,24 @@
             </div>
 
             <div>
-              <label class="block text-sm mb-1">Provinsi</label>
-              <select v-model="form.provinsi" class="w-full border p-2 rounded">
+              <label class="form-label">Provinsi</label>
+              <select v-model="form.provinsi" class="form-input">
                 <option value="">--Pilih Provinsi--</option>
                 <option v-for="prov in provinces" :key="prov">{{ prov }}</option>
               </select>
             </div>
 
             <div>
-              <label class="block text-sm mb-1">Kabupaten</label>
-              <select v-model="form.kabupaten" class="w-full border p-2 rounded">
+              <label class="form-label">Kabupaten</label>
+              <select v-model="form.kabupaten" class="form-input">
                 <option value="">--Pilih Kabupaten--</option>
                 <option v-for="kab in kabupatenList" :key="kab">{{ kab }}</option>
               </select>
             </div>
 
             <div>
-              <label class="block text-sm mb-1">Status</label>
-              <select v-model="form.status" class="w-full border p-2 rounded">
+              <label class="form-label">Status</label>
+              <select v-model="form.status" class="form-input">
                 <option value="">--Pilih--</option>
                 <option>DP</option>
                 <option>Tambahan DP</option>
@@ -118,36 +124,36 @@
             </div>
 
             <div>
-              <label class="block text-sm mb-1">Nominal Masuk (Rp)</label>
-              <input type="number" v-model.number="form.nominal_masuk" class="w-full border p-2 rounded" />
+              <label class="form-label">Nominal Masuk (Rp)</label>
+              <input type="number" v-model.number="form.nominal_masuk" class="form-input" placeholder="0" />
             </div>
 
             <div>
-              <label class="block text-sm mb-1">Harga Paket (Rp)</label>
-              <input type="number" v-model.number="form.harga_paket" class="w-full border p-2 rounded" />
+              <label class="form-label">Harga Paket (Rp)</label>
+              <input type="number" v-model.number="form.harga_paket" class="form-input" placeholder="0" />
             </div>
           </div>
 
           <DialogFooter class="mt-4 flex gap-2">
             <DialogClose as-child>
-              <button type="button" class="btn" @click.prevent="clearForm">Batal</button>
+              <button type="button" class="pill-btn" @click.prevent="clearForm">Batal</button>
             </DialogClose>
-            <button type="submit" class="btn btn-primary">{{ editing ? 'Update' : 'Simpan' }}</button>
+            <button type="submit" class="pill-btn" style="background:#4f46e5">{{ editing ? 'Update' : 'Simpan' }}</button>
           </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
 
-    <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
+  <div class="flex h-full flex-1 flex-col gap-6 rounded-xl px-4 md:px-8 py-6 md:py-10 overflow-x-auto">
       <div class="grid auto-rows-min gap-4 md:grid-cols-1">
-        <div class="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border p-4">
+  <div class="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border p-4 md:p-6">
           <div class="flex items-center justify-between">
             <h2 class="text-lg font-semibold mb-3">Input Transaksi</h2>
-            <button class="btn btn-primary" @click.prevent="openCreate">Tambah Transaksi</button>
+            <button class="pill-btn" @click.prevent="openCreate">Tambah Transaksi</button>
           </div>
         </div>
 
-        <div class="relative min-h-[40vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border p-4">
+  <div class="relative min-h-[40vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border p-4 md:p-6">
           <h2 class="text-lg font-semibold mb-3">Daftar Transaksi</h2>
 
           <div v-if="!sales.data.length" class="text-sm text-muted-foreground">Belum ada data.</div>
@@ -171,16 +177,23 @@
                 <td class="p-2">{{ s.product?.name }}</td>
                 <td class="p-2 text-right">Rp{{ formatNumber(s.nominal_masuk) }}</td>
                 <td class="p-2 text-center">
-                  <button @click="edit(s)" class="mr-2 text-blue-600">Edit</button>
-                  <button @click="destroy(s.id)" class="text-red-600">Hapus</button>
+                  <div class="flex items-center justify-center gap-2">
+                    <button @click="edit(s)" class="pill-btn small" title="Edit">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5h6M3 21v-4a4 4 0 014-4h6"/></svg>
+                    </button>
+
+                    <button @click="destroy(s.id)" class="pill-btn small pill-danger" title="Hapus">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H3a1 1 0 000 2h14a1 1 0 100-2h-2V3a1 1 0 00-1-1H6zm2 6a1 1 0 10-2 0v6a1 1 0 102 0V8zm6 0a1 1 0 10-2 0v6a1 1 0 102 0V8z" clip-rule="evenodd"/></svg>
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="mt-3 flex items-center gap-2">
-            <button v-if="sales.prev_page_url" @click="goto(sales.current_page - 1)" class="btn">Previous</button>
-            <button v-if="sales.next_page_url" @click="goto(sales.current_page + 1)" class="btn">Next</button>
+            <button v-if="salesAny.prev_page_url" @click="goto(salesAny.current_page - 1)" class="pill-btn small">Previous</button>
+            <button v-if="salesAny.next_page_url" @click="goto(salesAny.current_page + 1)" class="pill-btn small">Next</button>
           </div>
         </div>
       </div>
@@ -213,6 +226,7 @@ type PaginatedSales = { data: SaleItem[]; current_page: number; next_page_url: s
 
 const propsAny: any = (page.props as any);
 const sales = computed<PaginatedSales>(() => (propsAny.sales as PaginatedSales) ?? { data: [], current_page: 1, next_page_url: null, prev_page_url: null });
+const salesAny: any = sales;
 const products = computed<Product[]>(() => (propsAny.products as Product[]) ?? []);
 
 const editing = ref(false);
@@ -368,6 +382,20 @@ function formatDate(d: string) {
 </script>
 
 <style scoped>
-.btn { padding: 8px 12px; border-radius: 6px; border: 1px solid #ddd; background: #fff; cursor: pointer }
-.btn-primary { background: #2563eb; color: #fff; border-color: transparent }
+  .btn { padding: 8px 12px; border-radius: 6px; border: 1px solid #ddd; background: #fff; cursor: pointer }
+  .btn-primary { background: #2563eb; color: #fff; border-color: transparent }
+
+  .form-label { display:block; font-size: .875rem; margin-bottom: .35rem; color: #374151 }
+  .form-input { width:100%; padding: .6rem .75rem; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff; transition: border-color .12s ease, box-shadow .12s ease }
+  .form-input:focus { outline: none; border-color: #6366f1; box-shadow: 0 6px 18px rgba(99,102,241,0.12) }
+  .helper-text { font-size: .8rem; color: #6b7280; margin-top: .25rem }
+
+  .pill-btn { display: inline-flex; align-items: center; gap: .5rem; padding: .45rem .8rem; border-radius: 9999px; border: none; background: #4f46e5; color: #fff; cursor: pointer; box-shadow: 0 6px 20px rgba(79,70,229,0.12); transition: transform .08s ease }
+  .pill-btn.small { padding: .3rem .5rem; font-size: .82rem }
+  .pill-btn:hover { transform: translateY(-2px) }
+  .pill-btn.pill-danger { background: #ef4444 }
+
+  @media (max-width:640px) {
+    .form-input { font-size: .95rem }
+  }
 </style>
