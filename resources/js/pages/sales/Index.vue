@@ -10,7 +10,7 @@
 
         <!-- Full form now lives inside the dialog for both create and edit -->
         <form @submit.prevent="handleSubmit" class="grid gap-4">
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label class="form-label">Tanggal Transfer</label>
               <input type="date" v-model="form.tanggal_transfer" class="form-input" />
@@ -402,6 +402,7 @@ function formatDate(d: string) {
 
 <style scoped>
   /* dialog overrides for this page */
-  .dialog-custom { width: 60% !important; max-width: 90% !important; margin: 20vh auto !important; }
-  @media (max-width: 768px) { .dialog-custom { width: 95% !important; margin: 6vh auto !important } }
+  /* wider, viewport-based dialog to match provided screenshot */
+  .dialog-custom { width: 70vw !important; max-width: 1200px !important; margin: 10vh auto !important; }
+  @media (max-width: 1200px) { .dialog-custom { width: 90vw !important; max-width: 95% !important; margin: 6vh auto !important } }
 </style>
