@@ -20,6 +20,11 @@ const mainNavItems: NavItem[] = [
         icon: Folder,
     },
     {
+        title: 'Leads',
+        href: '/leads',
+        icon: Folder,
+    },
+    {
         title: 'Products',
         href: '/products',
         icon: BookOpen,
