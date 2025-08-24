@@ -30,7 +30,7 @@
     </Dialog>
     <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
       <div class="grid auto-rows-min gap-4 md:grid-cols-1">
-        <div class="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border p-4">
+  <div class="relative overflow-visible rounded-xl border border-sidebar-border/70 dark:border-sidebar-border p-4">
           <h2 class="text-lg font-semibold mb-3">Input Spent</h2>
 
           <form @submit.prevent="handleSubmit" class="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:items-end">
@@ -50,7 +50,7 @@
           </form>
         </div>
 
-        <div class="relative min-h-[40vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border p-4">
+  <div class="relative min-h-[40vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border p-4 overflow-visible">
           <h2 class="text-lg font-semibold mb-3">Daftar Spent</h2>
 
           <div v-if="!spents.data.length" class="text-sm text-muted-foreground">Belum ada data.</div>
@@ -185,4 +185,12 @@ function formatDate(d: string) {
   .pill-btn.small { padding: .35rem .7rem; font-size: .85rem }
   .pill-btn:hover { transform: translateY(-2px) }
   .pill-btn.pill-danger { background: #dc2626 }
+</style>
+
+<style scoped>
+  /* ensure native select dropdowns and popovers appear above cards */
+  select.form-input, select, .form-input { position: relative; z-index: 30 }
+  select:focus, .form-input:focus { z-index: 50 }
+  /* tooltips / dropdown buttons */
+  .pill-btn { z-index: 40 }
 </style>

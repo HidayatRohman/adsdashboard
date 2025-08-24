@@ -3,7 +3,7 @@
 
   <AppLayout :breadcrumbs="breadcrumbs">
     <Dialog v-model:open="editDialogOpen">
-      <DialogContent>
+      <DialogContent class="dialog-custom">
         <DialogHeader>
           <DialogTitle>{{ editing ? 'Edit Transaksi' : 'Tambah Transaksi' }}</DialogTitle>
         </DialogHeader>
@@ -398,4 +398,10 @@ function formatDate(d: string) {
   @media (max-width:640px) {
     .form-input { font-size: .95rem }
   }
+</style>
+
+<style scoped>
+  /* dialog overrides for this page */
+  .dialog-custom { width: 60% !important; max-width: 90% !important; margin: 20vh auto !important; }
+  @media (max-width: 768px) { .dialog-custom { width: 95% !important; margin: 6vh auto !important } }
 </style>
