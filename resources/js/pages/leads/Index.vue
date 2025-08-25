@@ -3,20 +3,20 @@
 
   <AppLayout :breadcrumbs="breadcrumbs">
     <Dialog v-model:open="dialogOpen">
-      <DialogContent class="dialog-full">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>{{ editing ? 'Edit Lead' : 'Tambah Lead' }}</DialogTitle>
         </DialogHeader>
 
         <form @submit.prevent="handleSubmit" class="grid gap-4">
-          <div class="grid grid-cols-1 xl:grid-cols-6 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label class="form-label">Nama Marketing</label>
               <input class="form-input" :value="marketingName" disabled />
               <div class="helper-text">Diambil dari akun yang login (role Marketing)</div>
             </div>
 
-            <div class="col-span-1">
+            <div>
               <label class="form-label">Nama Produk</label>
               <select v-model="form.product_id" class="form-input">
                 <option value="">--Pilih Produk--</option>
@@ -29,17 +29,17 @@
               <input v-model="form.customer_name" class="form-input" />
             </div>
 
-            <div class="col-span-1">
+            <div>
               <label class="form-label">No Hp Customer</label>
               <input v-model="form.customer_phone" class="form-input" />
             </div>
 
-            <div class="col-span-2">
+            <div class="md:col-span-2 lg:col-span-4">
               <label class="form-label">Alamat</label>
               <input v-model="form.address" class="form-input" />
             </div>
 
-            <div class="col-span-1">
+            <div>
               <label class="form-label">Respon Terakhir</label>
               <select v-model="form.last_response" class="form-input">
                 <option value="">--Pilih Respon--</option>
@@ -48,7 +48,7 @@
             </div>
           </div>
 
-          <DialogFooter class="mt-4 flex gap-2 justify-end">
+          <DialogFooter class="mt-4 flex gap-2">
             <DialogClose as-child>
               <button type="button" class="pill-btn" @click.prevent="clearForm">Batal</button>
             </DialogClose>
@@ -218,42 +218,4 @@ function formatDate(d: string) {
 .pill-btn:hover { transform: translateY(-2px) }
 .pill-btn.pill-danger { background: #ef4444 }
 /* Full-width dialog for lead input */
-.dialog-full {
-  width: 100vw !important;
-  max-width: 100vw !important;
-  left: 0 !important;
-  margin: 0 !important;
-  border-radius: 0 !important;
-  padding-left: 2vw;
-  padding-right: 2vw;
-}
-.dialog-full .grid {
-  width: 100%;
-}
-.dialog-full .form-input {
-  min-width: 0;
-  width: 100%;
-  box-sizing: border-box;
-}
-.dialog-full .col-span-1, .dialog-full .col-span-2 {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-.dialog-full .col-span-2 {
-  grid-column: span 2 / span 2;
-}
-.dialog-full .col-span-1 {
-  grid-column: span 1 / span 1;
-}
-@media (max-width: 1280px) {
-  .dialog-full .grid {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-}
-@media (max-width: 900px) {
-  .dialog-full .grid {
-    grid-template-columns: 1fr;
-  }
-}
 </style>

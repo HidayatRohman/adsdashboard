@@ -14,31 +14,6 @@ const mainNavItems: NavItem[] = [
         href: '/dashboard',
         icon: LayoutGrid,
     },
-    {
-        title: 'Transaksi',
-        href: '/sales',
-        icon: Folder,
-    },
-    {
-        title: 'Leads',
-        href: '/leads',
-        icon: Folder,
-    },
-    {
-        title: 'Products',
-        href: '/products',
-        icon: BookOpen,
-    },
-    {
-        title: 'Brands',
-        href: '/brands',
-        icon: BookOpen,
-    },
-    {
-        title: 'Spent',
-    href: '/spents',
-        icon: BookOpen,
-    },
 ];
 
 const footerNavItems: NavItem[] = [
