@@ -42,7 +42,12 @@ const lineOptions = {
         y: {
             beginAtZero: true,
             ticks: {
-                callback: (value: number) => formatCurrency(value)
+                callback: (tickValue: number | string) => {
+                    if (typeof tickValue === 'number') {
+                        return formatCurrency(tickValue);
+                    }
+                    return tickValue;
+                }
             }
         }
     },
@@ -51,7 +56,7 @@ const lineOptions = {
             position: 'bottom' as const
         }
     }
-};
+} as const;
 
 const pieOptions = {
     responsive: true,
@@ -61,7 +66,7 @@ const pieOptions = {
             position: 'bottom' as const
         }
     }
-};
+} as const;
 
 const barOptions = {
     responsive: true,
@@ -76,7 +81,7 @@ const barOptions = {
             position: 'bottom' as const
         }
     }
-};
+} as const;
 
 // Generate dates for the last N days
 const generateDates = (days: number) => {
@@ -162,10 +167,10 @@ onMounted(() => {
     <Head title="Dashboard" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-4 p-4">
+        <div class="flex h-full flex-1 flex-col gap-3 p-3">
             <!-- Summary Stats Cards -->
-            <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <div class="rounded-xl border bg-white p-4 shadow-sm dark:bg-sidebar-background dark:border-sidebar-border">
+            <div class="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+                <div class="rounded-xl border bg-white p-3 shadow-sm dark:bg-sidebar-background dark:border-sidebar-border">
                     <div class="flex items-center gap-2">
                         <Users class="h-4 w-4 text-gray-500" />
                         <h3 class="text-sm font-medium">Total Leads</h3>
@@ -203,9 +208,9 @@ onMounted(() => {
             </div>
 
             <!-- Charts -->
-            <div class="grid gap-4 lg:grid-cols-2">
-                <!-- Revenue Trend -->
-                <div class="rounded-xl border bg-white p-4 shadow-sm dark:bg-sidebar-background dark:border-sidebar-border">
+            <div class="grid gap-3 lg:grid-cols-2">
+                                <!-- Revenue Trend -->
+                <div class="rounded-xl border bg-white p-3 shadow-sm dark:bg-sidebar-background dark:border-sidebar-border">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-lg font-medium">Trend Pendapatan</h3>
                         <select 
@@ -218,15 +223,16 @@ onMounted(() => {
                             <option value="90">90 Hari</option>
                         </select>
                     </div>
-                    <Line
-                        :data="revenueData"
-                        :options="lineOptions"
-                        class="h-[300px]"
-                    />
+                    <div class="h-[400px] w-full">
+                        <Line
+                            :data="revenueData"
+                            :options="lineOptions"
+                        />
+                    </div>
                 </div>
 
                 <!-- Lead Sources -->
-                <div class="rounded-xl border bg-white p-4 shadow-sm dark:bg-sidebar-background dark:border-sidebar-border">
+                <div class="rounded-xl border bg-white p-3 shadow-sm dark:bg-sidebar-background dark:border-sidebar-border">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-lg font-medium">Sumber Lead</h3>
                         <select 
@@ -238,15 +244,16 @@ onMounted(() => {
                             <option value="90">90 Hari</option>
                         </select>
                     </div>
-                    <Pie
-                        :data="leadSourceData"
-                        :options="pieOptions"
-                        class="h-[300px]"
-                    />
+                    <div class="h-[400px] w-full">
+                        <Pie
+                            :data="leadSourceData"
+                            :options="pieOptions"
+                        />
+                    </div>
                 </div>
 
                 <!-- Marketing Performance -->
-                <div class="rounded-xl border bg-white p-4 shadow-sm dark:bg-sidebar-background dark:border-sidebar-border">
+                <div class="rounded-xl border bg-white p-3 shadow-sm dark:bg-sidebar-background dark:border-sidebar-border">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-lg font-medium">Performa Marketing</h3>
                         <select 
@@ -258,15 +265,16 @@ onMounted(() => {
                             <option value="90">90 Hari</option>
                         </select>
                     </div>
-                    <Bar
-                        :data="marketingData"
-                        :options="barOptions"
-                        class="h-[300px]"
-                    />
+                    <div class="h-[400px] w-full">
+                        <Bar
+                            :data="marketingData"
+                            :options="barOptions"
+                        />
+                    </div>
                 </div>
 
                 <!-- Product Performance -->
-                <div class="rounded-xl border bg-white p-4 shadow-sm dark:bg-sidebar-background dark:border-sidebar-border">
+                <div class="rounded-xl border bg-white p-3 shadow-sm dark:bg-sidebar-background dark:border-sidebar-border">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-lg font-medium">Produk Terlaris</h3>
                         <select 
@@ -278,11 +286,12 @@ onMounted(() => {
                             <option value="90">90 Hari</option>
                         </select>
                     </div>
-                    <Bar
-                        :data="productData"
-                        :options="barOptions"
-                        class="h-[300px]"
-                    />
+                    <div class="h-[400px] w-full">
+                        <Bar
+                            :data="productData"
+                            :options="barOptions"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
